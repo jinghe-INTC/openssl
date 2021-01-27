@@ -125,6 +125,10 @@ int ERR_load_EVP_strings(void);
 # define EVP_F_R_32_12_16_INIT_KEY                        242
 # define EVP_F_S390X_AES_GCM_CTRL                         201
 # define EVP_F_UPDATE                                     173
+# define EVP_F_EVP_PKEY_GET0_SM9                          276
+# define EVP_F_EVP_PKEY_GET0_SM9MASTERSECRET              273
+# define EVP_F_EVP_PKEY_GET0_SM9PUBLICPARAMETERS          274
+# define EVP_F_EVP_PKEY_GET0_SM9_MASTER                   275
 
 /*
  * EVP reason codes.
@@ -201,5 +205,8 @@ int ERR_load_EVP_strings(void);
 # define EVP_R_WRAP_MODE_NOT_ALLOWED                      170
 # define EVP_R_WRONG_FINAL_BLOCK_LENGTH                   109
 # define EVP_R_XTS_DUPLICATED_KEYS                        183
+# define EVP_R_EXPECTING_A_SM9_KEY                        280
+# define EVP_R_EXPECTING_A_SM9_MASTER_KEY                 281
+# define EVP_R_EXPECTING_A_SM9_MASTER_SECRET              279
 
 #endif

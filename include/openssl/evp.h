@@ -62,6 +62,8 @@
 # define EVP_PKEY_ED25519 NID_ED25519
 # define EVP_PKEY_X448 NID_X448
 # define EVP_PKEY_ED448 NID_ED448
+# define EVP_PKEY_SM9_MASTER NID_id_sm9MasterSecret
+# define EVP_PKEY_SM9        NID_id_sm9PublicKey
 
 #ifdef  __cplusplus
 extern "C" {
@@ -427,6 +429,17 @@ typedef int (EVP_PBE_KEYGEN) (EVP_CIPHER_CTX *ctx, const char *pass,
 # ifndef OPENSSL_NO_SIPHASH
 #  define EVP_PKEY_assign_SIPHASH(pkey,shkey) EVP_PKEY_assign((pkey),EVP_PKEY_SIPHASH,\
                                         (char *)(shkey))
+# endif
+
+# ifndef OPENSSL_NO_SM9
+#  define EVP_PKEY_assign_SM9_MASTER(pkey,sm9) EVP_PKEY_assign((pkey),EVP_PKEY_SM9_MASTER,\
+                                        (char *)(sm9))
+#  define EVP_PKEY_assign_SM9(pkey,sm9) EVP_PKEY_assign((pkey),EVP_PKEY_SM9,\
+                                        (char *)(sm9))
+#  define EVP_PKEY_assign_SM9MasterSecret(pkey,sm9) EVP_PKEY_assign_SM9_MASTER(pkey,sm9)
+#  define EVP_PKEY_assign_SM9PublicParameters(pkey,sm9) EVP_PKEY_assign_SM9_MASTER(pkey,sm9)
+#  define EVP_PKEY_assign_SM9PrivateKey(pkey,sm9) EVP_PKEY_assign_SM9(pkey,sm9)
+#  define EVP_PKEY_assign_SM9PublicKey(pkey,sm9) EVP_PKEY_assign_SM9(pkey,sm9)
 # endif
 
 # ifndef OPENSSL_NO_POLY1305
@@ -857,6 +870,9 @@ const EVP_CIPHER *EVP_aes_128_cbc_hmac_sha1(void);
 const EVP_CIPHER *EVP_aes_256_cbc_hmac_sha1(void);
 const EVP_CIPHER *EVP_aes_128_cbc_hmac_sha256(void);
 const EVP_CIPHER *EVP_aes_256_cbc_hmac_sha256(void);
+#  ifndef OPENSSL_NO_SM9
+const EVP_MD *EVP_sm9hash2_sm3(void);
+#  endif
 # ifndef OPENSSL_NO_ARIA
 const EVP_CIPHER *EVP_aria_128_ecb(void);
 const EVP_CIPHER *EVP_aria_128_cbc(void);
@@ -1659,6 +1675,28 @@ void EVP_PKEY_meth_get_digest_custom(EVP_PKEY_METHOD *pmeth,
                                                              EVP_MD_CTX *mctx));
 void EVP_add_alg_module(void);
 
+# ifndef OPENSSL_NO_SM9
+struct SM9_MASTER_KEY_st;
+int EVP_PKEY_set1_SM9_MASTER(EVP_PKEY *pkey, struct SM9_MASTER_KEY_st *key);
+struct SM9_MASTER_KEY_st *EVP_PKEY_get0_SM9_MASTER(EVP_PKEY *pkey);
+struct SM9_MASTER_KEY_st *EVP_PKEY_get1_SM9_MASTER(EVP_PKEY *pkey);
+#define EVP_PKEY_set1_SM9MasterSecret(pk,k) EVP_PKEY_set1_SM9_MASTER(pk,k)
+#define EVP_PKEY_get0_SM9MasterSecret(pk) EVP_PKEY_get0_SM9_MASTER(pk)
+#define EVP_PKEY_get1_SM9MasterSecret(pk) EVP_PKEY_get1_SM9_MASTER(pk)
+#define EVP_PKEY_set1_SM9PublicParameters(pk,k) EVP_PKEY_set1_SM9_MASTER(pk,k)
+#define EVP_PKEY_get0_SM9PublicParameters(pk) EVP_PKEY_get0_SM9_MASTER(pk)
+#define EVP_PKEY_get1_SM9PublicParameters(pk) EVP_PKEY_get1_SM9_MASTER(pk)
+struct SM9_KEY_st;
+int EVP_PKEY_set1_SM9(EVP_PKEY *pkey, struct SM9_KEY_st *key);
+struct SM9_KEY_st *EVP_PKEY_get0_SM9(EVP_PKEY *pkey);
+struct SM9_KEY_st *EVP_PKEY_get1_SM9(EVP_PKEY *pkey);
+#define EVP_PKEY_set1_SM9PrivateKey(pk,k) EVP_PKEY_set1_SM9(pk,k)
+#define EVP_PKEY_get0_SM9PrivateKey(pk,k) EVP_PKEY_get0_SM9(pk)
+#define EVP_PKEY_get1_SM9PrivateKey(pk,k) EVP_PKEY_get1_SM9(pk)
+#define EVP_PKEY_set1_SM9PublicKey(pk,k) EVP_PKEY_set1_SM9(pk,k)
+#define EVP_PKEY_get0_SM9PublicKey(pk,k) EVP_PKEY_get0_SM9(pk)
+#define EVP_PKEY_get1_SM9PublicKey(pk,k) EVP_PKEY_get1_SM9(pk)
+# endif
 
 # ifdef  __cplusplus
 }

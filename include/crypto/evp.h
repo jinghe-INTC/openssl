@@ -111,6 +111,10 @@ extern const EVP_PKEY_METHOD tls1_prf_pkey_meth;
 extern const EVP_PKEY_METHOD hkdf_pkey_meth;
 extern const EVP_PKEY_METHOD poly1305_pkey_meth;
 extern const EVP_PKEY_METHOD siphash_pkey_meth;
+#ifndef OPENSSL_NO_SM9
+extern const EVP_PKEY_METHOD sm9_pkey_meth;
+extern const EVP_PKEY_METHOD sm9_master_pkey_meth;
+#endif
 
 struct evp_md_st {
     int type;
@@ -413,6 +417,10 @@ struct evp_pkey_st {
 # ifndef OPENSSL_NO_EC
         struct ec_key_st *ec;   /* ECC */
         ECX_KEY *ecx;           /* X25519, X448, Ed25519, Ed448 */
+# endif
+# ifndef OPENSSL_NO_SM9         /* SM9 */
+        struct SM9_MASTER_KEY_st *sm9_master;
+        struct SM9_KEY_st *sm9;
 # endif
     } pkey;
     int save_parameters;

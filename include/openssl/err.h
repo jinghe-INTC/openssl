@@ -267,6 +267,10 @@ int ERR_set_mark(void);
 int ERR_pop_to_mark(void);
 int ERR_clear_last_mark(void);
 
+# define ERR_LIB_SM9             61
+# define SM9err(f,r) ERR_PUT_error(ERR_LIB_SM9,(f),(r),OPENSSL_FILE,OPENSSL_LINE)
+# define ERR_R_SM9_LIB  ERR_LIB_SM9/* 61 */
+
 #ifdef  __cplusplus
 }
 #endif
