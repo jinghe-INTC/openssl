@@ -293,7 +293,7 @@ $config{perlargv} = [ @argvcopy ];
 foreach ( reverse sort( 'aes', 'aria', 'bf', 'camellia', 'cast', 'des', 'dh',
                         'dsa', 'ec', 'hmac', 'idea', 'md2', 'md5', 'mdc2',
                         'rc2', 'rc4', 'rc5', 'ripemd', 'seed', 'sha',
-                        'sm2', 'sm3', 'sm4') ) {
+                        'sm2', 'sm3', 'sm4', "sm9") ) {
     unshift @argvcopy, "no-$_" if ! -d catdir($srcdir, 'crypto', $_);
 }
 
@@ -461,6 +461,7 @@ my @disablables = (
     "sm2",
     "sm3",
     "sm4",
+    "sm9",
     "sock",
     "srp",
     "srtp",
@@ -552,7 +553,7 @@ my @disable_cascades = (
                              "ocsp", "ocb", "poly1305", "psk",
                              "rc2", "rc4", "rmd160",
                              "seed", "siphash", "siv",
-                             "sm3", "sm4", "srp",
+                             "sm3", "sm4", "sm9", "srp",
                              "srtp", "ssl3-method",
                              "ts", "ui-console", "whirlpool",
                              "fips-securitychecks" ],

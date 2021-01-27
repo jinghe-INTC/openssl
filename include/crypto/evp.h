@@ -185,6 +185,10 @@ const EVP_PKEY_METHOD *ed25519_pkey_method(void);
 const EVP_PKEY_METHOD *ed448_pkey_method(void);
 const EVP_PKEY_METHOD *ossl_rsa_pkey_method(void);
 const EVP_PKEY_METHOD *ossl_rsa_pss_pkey_method(void);
+#ifndef OPENSSL_NO_SM9
+const EVP_PKEY_METHOD *sm9_pkey_method(void);
+const EVP_PKEY_METHOD *sm9_master_pkey_method(void);
+#endif
 
 struct evp_mac_st {
     OSSL_PROVIDER *prov;
@@ -611,6 +615,10 @@ struct evp_pkey_st {
         struct ec_key_st *ec;   /* ECC */
         ECX_KEY *ecx;           /* X25519, X448, Ed25519, Ed448 */
 #  endif
+# ifndef OPENSSL_NO_SM9         /* SM9 */
+        struct SM9_MASTER_KEY_st *sm9_master;
+        struct SM9_KEY_st *sm9;
+# endif
     } pkey;
 # endif
 

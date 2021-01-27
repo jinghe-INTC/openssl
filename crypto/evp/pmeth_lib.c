@@ -71,6 +71,10 @@ static pmeth_fn standard_methods[] = {
     ed25519_pkey_method,
     ed448_pkey_method,
 # endif
+#ifndef OPENSSL_NO_SM9
+    &sm9_pkey_method,
+    &sm9_master_pkey_method,
+#endif
 };
 
 DECLARE_OBJ_BSEARCH_CMP_FN(const EVP_PKEY_METHOD *, pmeth_fn, pmeth_func);
