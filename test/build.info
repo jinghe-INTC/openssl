@@ -458,6 +458,9 @@ INCLUDE_MAIN___test_libtestutil_OLB = /INCLUDE=MAIN
     IF[{- !$disabled{sm9} -}]
       PROGRAMS_NO_INST=sm9test
     ENDIF
+    IF[{- !$disabled{zuc} -}]
+      PROGRAMS_NO_INST=zuctest
+    ENDIF
     IF[{- !$disabled{sm4} -}]
       PROGRAMS_NO_INST=sm4_internal_test
     ENDIF
@@ -517,6 +520,10 @@ INCLUDE_MAIN___test_libtestutil_OLB = /INCLUDE=MAIN
     SOURCE[sm9test]=sm9test.c
     INCLUDE[sm9test]=../include
     DEPEND[sm9test]=../libcrypto.a 
+
+    SOURCE[zuctest]=zuctest.c
+    INCLUDE[zuctest]=../include
+    DEPEND[zuctest]=../libcrypto.a
 
     SOURCE[sm4_internal_test]=sm4_internal_test.c
     INCLUDE[sm4_internal_test]=.. ../include
